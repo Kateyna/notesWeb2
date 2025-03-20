@@ -43,8 +43,8 @@ public class NoteController {
         return noteService.deleteNote(id);
     }
 
-    @DeleteMapping("/note")
-    public ResponseEntity<HttpStatus> deleteAllNotes() {
-        return noteService.deleteAllNotes();
-    }
+//    @DeleteMapping("/note")
+//    public ResponseEntity<HttpStatus> deleteAllNotes() {
+//        return noteService.deleteAllNotes();
+//    }
 }
