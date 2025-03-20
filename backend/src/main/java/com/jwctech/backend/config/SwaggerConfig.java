@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .addServersItem(new Server().url("http://localhost:8080/api/note")) // Указываем базовый URL
+                .addServersItem(new Server().url("http://localhost:8080")) // Указываем базовый URL
                 .info(new Info()
                         .title("Note api")
                         .version("1.0")

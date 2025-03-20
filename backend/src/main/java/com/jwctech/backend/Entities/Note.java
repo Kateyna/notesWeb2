@@ -2,7 +2,7 @@ package com.jwctech.backend.Entities;
 
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
-import lombok.Data;
+
 
 @Entity
 @Table(name = "note")
