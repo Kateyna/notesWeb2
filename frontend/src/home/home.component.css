@@ -83,6 +83,20 @@ mat-table button {
   font-size: 14px;
 }
 
+mat-table1 button {
+  background-color: transparent;
+  border: none;
+  color: #09da09;
+  cursor: pointer;
+  border-radius: 4px;
+  outline: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+}
+
 mat-table button:hover {
   background-color: rgba(195, 15, 15, 0.1); /* Легкий красный фон при наведении */
 }
