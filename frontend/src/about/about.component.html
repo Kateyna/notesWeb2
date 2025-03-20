@@ -1,0 +1,25 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+<div class="container">
+  <form>
+    <b>Добавить заметку</b>
+    <p>
+      <label> <b>Название</b></label><br>
+      <input name="username" [(ngModel)]="note.name"/>
+    </p>
+    <p>
+      <label> <b>Описание</b></label><br>
+      <input name="age" [(ngModel)]="note.description"/>
+    </p>
+    <button class="btn btn-default" (click)="submit(note); goToPage('home') ">Сохранить</button>
+    @if (done) {
+      <h3>Добавлена запись!</h3>
+
+    }
+  </form>
+</div>
+</body>

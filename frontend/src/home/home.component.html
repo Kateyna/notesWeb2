@@ -1,0 +1,34 @@
+<div class="container">
+
+  <h1 class="title">Мои заметки</h1>
+  <div class="header">
+
+    <button class="add-note-btn" (click)="goToPage('about')">Добавить заметку</button>
+  </div>
+
+  <div class="table-container">
+    <mat-table [dataSource]="dataSource">
+      <!-- Определение столбцов -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef><b>Заметка</b></mat-header-cell>
+        <mat-cell *matCellDef="let item">{{ item.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> <b>Описание</b></mat-header-cell>
+        <mat-cell *matCellDef="let item">{{ item.description }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let item">
+          <button (click)="deleteItem(item.id)">Х</button>
+          <button class="add-note-btn" (click)="goToEdit(item.id)">Редактировать</button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['name', 'description', 'actions']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['name', 'description', 'actions'];"></mat-row>
+    </mat-table>
+  </div>
+</div>
