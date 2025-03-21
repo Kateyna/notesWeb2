@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +23,7 @@ public class NoteService  {
     @Autowired
     private NoteRepo noteRepo;
 
+    @Transactional(readOnly = true)
     public ResponseEntity<List<Note>> getAllNotes(String name) {
         try {
             List<Note> notes = new ArrayList<>();
@@ -40,7 +43,7 @@ public class NoteService  {
         }
     }
 
-
+    @Transactional(readOnly = true)
     public ResponseEntity<Note> getNoteById(long id) {
         Optional<Note> noteData = noteRepo.findById(id);
 
@@ -51,7 +54,9 @@ public class NoteService  {
         }
     }
 
-
+    @Transactional(propagation = Propagation.REQUIRED,
+            rollbackFor = Exception.class,
+            noRollbackFor = {IllegalArgumentException.class})
     public ResponseEntity<Note> createNote(Note note) {
         try {
             Note _note = noteRepo.save(new Note(note.getName(), note.getDescription()));
@@ -61,7 +66,9 @@ public class NoteService  {
         }
     }
 
-
+    @Transactional(propagation = Propagation.REQUIRED,
+            rollbackFor = {RuntimeException.class},
+            noRollbackFor = {IllegalArgumentException.class})
     public ResponseEntity<Note> updateNote(long id, Note note) {
         Optional<Note> noteData = noteRepo.findById(id);
 
@@ -75,7 +82,7 @@ public class NoteService  {
         }
     }
 
-
+    @Transactional(propagation = Propagation.REQUIRED)
     public ResponseEntity<HttpStatus> deleteNote(long id) {
         try {
             noteRepo.deleteById(id);

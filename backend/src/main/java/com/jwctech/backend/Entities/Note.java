@@ -50,9 +50,5 @@ public class Note  {
     }
 
 
-    @Override
-    public String toString() {
-        return "Tutorial [id=" + id + ", name=" + name + ", desc=" + description  + "]";
-    }
 }
 
