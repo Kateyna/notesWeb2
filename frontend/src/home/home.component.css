@@ -13,7 +13,7 @@
   width: 100%;
   text-align: center;
   margin-bottom: 10px;
-  transform: translateX(250px);
+  transform: translateX(205px);
 }
 
 .add-note-btn {
@@ -41,6 +41,8 @@
   min-width: 300px; /* Минимальная ширина контейнера */
   max-width: 600px;
   border-radius: 15px;
+  background-color: #f8f6f6;
+  border: 2px solid #ccc;
   width: 100%;
   overflow-x: auto;
 }
@@ -48,9 +50,14 @@
 /* Стиль для самой таблицы */
 mat-table {
   width: 100%;
-  border-radius: 4px;
-  border-collapse: collapse;
-  background-color: #f9f9fa;
+
+
+
+}
+
+h1{
+  font-family: sans-serif;
+
 }
 
 mat-table th, mat-table td {
@@ -69,7 +76,7 @@ mat-table th, mat-table td {
 }
 
 mat-table tr:hover {
-  background-color: #f5f5f5;
+  background-color: #612929;
   border-radius: 4px;
 }
 

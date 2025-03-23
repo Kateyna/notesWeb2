@@ -17,7 +17,8 @@ import {MatDialog, MatDialogActions, MatDialogContent, MatDialogModule, MatDialo
   standalone: true,
   imports: [MatFormFieldModule,MatInputModule,MatButtonModule,MatTableModule,HttpClientModule,FormsModule,MatDialogModule,MatInputModule,MatFormFieldModule],
   styleUrl: './home.component.css',
-  templateUrl: './home.component.html',
+  templateUrl: './home.component.html'
+
 
 })
 

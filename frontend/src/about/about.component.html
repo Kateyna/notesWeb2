@@ -8,14 +8,15 @@
   <form>
     <b>Добавить заметку</b>
     <p>
-      <label> Название</label><br>
+
       <input name="username" [(ngModel)]="note.name" name="name" placeholder="Название"/>
     </p>
+
+
+      <textarea class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание" ></textarea>
     <p>
-      <label> Описание</label><br>
-      <input class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание"/>
     </p>
-    <button class="btn btn-default" (click)="submit(note)">Сохранить</button>
+    <button class="add-note-btn" (click)="submit(note)">Сохранить</button>
   </form>
 </div>
 </body>
