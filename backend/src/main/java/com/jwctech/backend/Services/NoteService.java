@@ -1,9 +1,12 @@
 package com.jwctech.backend.Services;
 
+import com.jwctech.backend.DTO.NoteDto;
+import com.jwctech.backend.DTO.NoteMapper;
 import com.jwctech.backend.Entities.Note;
 
 import com.jwctech.backend.Repo.NoteRepo;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,47 +23,48 @@ import java.util.Optional;
 @Service
 public class NoteService  {
 
+    private final NoteRepo noteRepo;
+    private final NoteMapper noteMapper;
+
     @Autowired
-    private NoteRepo noteRepo;
+    public NoteService(NoteRepo noteRepo, NoteMapper noteMapper) {
+        this.noteRepo = noteRepo;
+        this.noteMapper = noteMapper;
+    }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<List<Note>> getAllNotes(String name) {
+    public ResponseEntity<List<NoteDto>> getAllNotes(String name) {
         try {
             List<Note> notes = new ArrayList<>();
 
-            if (name == null)
-                noteRepo.findAll().forEach(notes::add);
-            else
-                noteRepo.findByName(name).forEach(notes::add);
+            if (name == null) noteRepo.findAll().forEach(notes::add);
+            else noteRepo.findByName(name).forEach(notes::add);
 
-            if (notes.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
+            if (notes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-            return new ResponseEntity<>(notes, HttpStatus.OK);
+            return new ResponseEntity<>(noteMapper.toNoteDtoList(notes), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    // Обновите метод getNoteById
     @Transactional(readOnly = true)
-    public ResponseEntity<Note> getNoteById(long id) {
+    public ResponseEntity<NoteDto> getNoteById(long id) {
         Optional<Note> noteData = noteRepo.findById(id);
-
-        if (noteData.isPresent()) {
-            return new ResponseEntity<>(noteData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return noteData.map(note ->
+                        new ResponseEntity<>(noteMapper.toNoteDto(note), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Transactional(propagation = Propagation.REQUIRED,
             rollbackFor = Exception.class,
             noRollbackFor = {IllegalArgumentException.class})
-    public ResponseEntity<Note> createNote(Note note) {
+    public ResponseEntity<NoteDto> createNote(@Valid NoteDto noteDto) {
         try {
-            Note _note = noteRepo.save(new Note(note.getName(), note.getDescription()));
-            return new ResponseEntity<>(_note, HttpStatus.CREATED);
+            Note note = noteMapper.toEntity(noteDto);
+            Note savedNote = noteRepo.save(note);
+            return new ResponseEntity<>(noteMapper.toNoteDto(savedNote), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -69,27 +73,25 @@ public class NoteService  {
     @Transactional(propagation = Propagation.REQUIRED,
             rollbackFor = {RuntimeException.class},
             noRollbackFor = {IllegalArgumentException.class})
-    public ResponseEntity<Note> updateNote(long id, Note note) {
-        Optional<Note> noteData = noteRepo.findById(id);
-
-        if (noteData.isPresent()) {
-            Note _note = noteData.get();
-            _note.setName(note.getName());
-            _note.setDescription(note.getDescription());
-            return new ResponseEntity<>(noteRepo.save(_note), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<NoteDto> updateNote(long id, @Valid NoteDto noteDto) {
+        return noteRepo.findById(id)
+                .map(existingNote -> {
+                    noteMapper.updateNoteFromDto(noteDto, existingNote);
+                    Note updatedNote = noteRepo.save(existingNote);
+                    return new ResponseEntity<>(noteMapper.toNoteDto(updatedNote), HttpStatus.OK);
+                })
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
     @Transactional(propagation = Propagation.REQUIRED)
-    public ResponseEntity<HttpStatus> deleteNote(long id) {
-        try {
-            noteRepo.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<Void> deleteNote(long id) {
+        return noteRepo.findById(id)
+                .map(note -> {
+                    noteRepo.deleteById(id);
+                    return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+                })
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 //    @Transactional

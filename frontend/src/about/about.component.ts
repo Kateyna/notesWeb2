@@ -34,9 +34,6 @@ export class AboutComponent {
   }
 
 
-  goToPage(pageName: string): void {
-    this.router.navigate([`${pageName}`]);
-  }
 
   submit(note: Note) {
     this.httpService.postData(note)
@@ -47,6 +44,11 @@ export class AboutComponent {
         },
         error: error => console.log(error)
       });
+  }
+
+
+  goToPage(pageName: string): void {
+    this.router.navigate([`${pageName}`]);
   }
 }
 

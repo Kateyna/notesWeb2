@@ -2,15 +2,22 @@ package com.jwctech.backend.DTO;
 
 import com.jwctech.backend.Entities.Note;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface NoteMapper {
 
-    NoteResponce toUserResponse(Note note); //map User to UserResponse
+    @Mapping(target = "id", ignore = true)
+    Note toEntity(NoteDto dto);
 
-    List<NoteResponce> toUserResponseList(List<Note> note); //map list of User to list of UserResponse
+    NoteDto toNoteDto(Note entity);
+
+    List<NoteDto> toNoteDtoList(List<Note> entities);
+
+    @Mapping(target = "id", ignore = true)
+    void updateNoteFromDto(NoteDto dto, @MappingTarget Note entity);
 }
-

@@ -1,6 +1,6 @@
 package com.jwctech.backend.DTO;
 
-public record NoteResponce(
+public record NoteDto(
         Long id,
         String name,
         String description) {
