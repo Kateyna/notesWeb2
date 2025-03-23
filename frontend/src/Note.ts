@@ -1,3 +1,7 @@
 export class Note{
-  constructor(public name:string, public description:string){}
+  constructor(
+    public id: number,         // Добавляем ID
+    public name: string,
+    public description: string
+  ) {}
 }

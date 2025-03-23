@@ -25,10 +25,11 @@ import {HomeComponent} from '../home/home.component';
 export class AboutComponent {
 
 
-  note: Note = new Note("", "");
+  note: Note = new Note(0,"", "");
 
   receivedNote: Note | undefined;
   done: boolean = false;
+
 
   constructor(private httpService: HttpService, private router: Router) {
   }
@@ -36,6 +37,16 @@ export class AboutComponent {
 
 
   submit(note: Note) {
+    const name = note.name?.trim();
+    const description = note.description?.trim();
+
+    if (!name || !description) {
+      // Можно добавить визуальное уведомление
+      alert('Пожалуйста, заполните все поля!');
+      return;
+
+    }
+
     this.httpService.postData(note)
       .subscribe({
         next: (data: any) => {

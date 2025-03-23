@@ -1,0 +1,32 @@
+
+b {
+  font-family: sans-serif;
+}
+
+
+
+
+h1 {
+  font-size: 20px;
+  color: #810404;
+}
+
+button {
+  background-color: #dcdcdc;
+  font-family: sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #b3afaf;
+
+}
+
+
+
+h2 {
+  font-family: sans-serif;
+  font-size: 18px;
+
+}

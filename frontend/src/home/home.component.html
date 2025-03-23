@@ -22,7 +22,7 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let item">
-          <button (click)="deleteItem(item.id)">Х</button>
+          <button (click)="openDeleteDialog(item)">Х</button>
           <button class="mat-table1 button" (click)="goToEdit(item.id)">Редактировать</button>
         </mat-cell>
       </ng-container>

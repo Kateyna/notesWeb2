@@ -10,6 +10,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Note} from '../Note';
 import { FormsModule } from '@angular/forms';
 import {MatDialog, MatDialogActions, MatDialogContent, MatDialogModule, MatDialogTitle} from '@angular/material/dialog';
+import {DialologyComponent} from '../dialology/dialology.component';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-  private route: ActivatedRoute
+  private route: ActivatedRoute,
+  public dialog: MatDialog
   ) {
   }
 
@@ -40,6 +42,18 @@ export class HomeComponent implements OnInit {
 
       });
   }
+
+  openDeleteDialog(item: Note): void {
+    const dialogRef = this.dialog.open(DialologyComponent, {
+      data: { name: item.name }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteItem(item.id);
+      }
+    });
+  }
+
 
   goToPage(pageName: string): void {
     this.router.navigate([`${pageName}`]);

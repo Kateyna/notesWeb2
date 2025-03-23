@@ -20,7 +20,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class EditComponent implements OnInit{
 
-  note: Note = new Note("", "");
+  note: Note = new Note(0,"", "");
   id: number | null = null; // Используем null для проверки
 
   constructor(
@@ -39,6 +39,8 @@ export class EditComponent implements OnInit{
   }
 
   loadNote(id: number): void {
+
+
     this.http.get<Note>(`http://localhost:8080/api/note/${id}`)
       .subscribe({
         next: (data) => {
@@ -47,7 +49,18 @@ export class EditComponent implements OnInit{
       });
   }
 
+
+
   editItem(): void {
+    const name = this.note.name?.trim();
+    const description = this.note.description?.trim();
+
+    if (!name || !description) {
+      // Можно добавить визуальное уведомление
+      alert('Пожалуйста, заполните все поля!');
+      return;
+
+    }
     this.http.put(`http://localhost:8080/api/note/${this.id}`, this.note)
       .subscribe({
         next: () => {

@@ -47,6 +47,13 @@ b {
   color: #e1ebed;
 
 }
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
 .big_input {
 
   border: 1px solid #ccc;
