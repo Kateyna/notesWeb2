@@ -48,7 +48,7 @@ public class NoteService  {
         }
     }
 
-    // Обновите метод getNoteById
+
     @Transactional(readOnly = true)
     public ResponseEntity<NoteDto> getNoteById(long id) {
         Optional<Note> noteData = noteRepo.findById(id);
