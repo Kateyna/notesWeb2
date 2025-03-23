@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.http.get<Note[]>('http://localhost:8080/api/note')
       .subscribe((notes: Note[]) => {
         this.dataSource = new MatTableDataSource(notes);
@@ -41,14 +40,16 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  goToEdit(id: number): void {
-    this.router.navigate(['/edit', id]);  // Переход с параметром ID
-  }
-
   goToPage(pageName: string): void {
     this.router.navigate([`${pageName}`]);
 
   }
+
+
+  goToEdit(id: number): void {
+    this.router.navigate(['/edit', id]);  // Переход с параметром ID
+  }
+
 
   deleteItem(id: number) {
 

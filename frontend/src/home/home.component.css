@@ -5,17 +5,19 @@
   align-items: center;
   padding: 20px;
 
+
 }
 
 /* Заголовок с кнопкой добавления */
 .header {
   width: 100%;
-  text-align: right;
+  text-align: center;
   margin-bottom: 10px;
+  transform: translateX(250px);
 }
 
 .add-note-btn {
-  background-color: #4ab1cd; /* Зеленый цвет */
+  background-color: #ca0505;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -29,7 +31,9 @@
 }
 
 .add-note-btn:hover {
-  background-color: #5d95c5; /* Темнее зеленый при наведении */
+  background-color: #810404; /* Темнее зеленый при наведении */
+  color: #e1ebed;
+
 }
 
 /* Контейнер для таблицы */
@@ -46,6 +50,7 @@ mat-table {
   width: 100%;
   border-radius: 4px;
   border-collapse: collapse;
+  background-color: #f9f9fa;
 }
 
 mat-table th, mat-table td {
@@ -82,6 +87,7 @@ mat-table button {
   display: inline-block;
   font-size: 14px;
 }
+
 
 mat-table1 button {
   background-color: transparent;

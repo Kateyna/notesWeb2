@@ -41,15 +41,14 @@ export class AboutComponent {
         next: (data: any) => {
           this.receivedNote = data;
           this.done = true;
+          this.router.navigate(['/home']);
         },
         error: error => console.log(error)
       });
   }
 
 
-  goToPage(pageName: string): void {
-    this.router.navigate([`${pageName}`]);
-  }
+
 }
 
 

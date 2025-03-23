@@ -3,6 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
+
+
 <body>
 <div class="container">
   <form>
@@ -12,8 +14,8 @@
       <input [(ngModel)]="note.name" name="name" placeholder="Название" />
     </p>
     <p>
-      <label> <b>Описание</b></label><br>
-      <input [(ngModel)]="note.description" name="description" placeholder="Описание" />
+      <label>  <b>Описание</b></label><br>
+      <textarea  class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание"    ></textarea>
     </p>
     <button class="btn btn-default" (click)="editItem()  ">Сохранить</button>
   </form>

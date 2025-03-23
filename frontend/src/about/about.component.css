@@ -43,9 +43,16 @@ p {
   margin-bottom: 15px;
 }
 
+b {
+  font-family: sans-serif;
+    font-size: 25px;
+
+}
+
 label {
   font-weight: bold;
-  margin-bottom: 5px;
+  font-family: sans-serif;
+  color: #5b605c;
 }
 
 input {
@@ -66,12 +73,12 @@ input {
 }
 
 .btn-default {
-  background-color: #21646c;
+  background-color: #ca0505;
   color: white;
 }
 
 .btn-default:hover {
-  background-color: #45a049;
+  background-color: #ca0505;
 }
 
 h3 {
@@ -103,12 +110,14 @@ p {
   margin-bottom: 15px;
 }
 
+
+
 label {
   font-weight: bold;
   margin-bottom: 5px; }
 
 input {
-  padding: 10px;
+
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
@@ -122,15 +131,6 @@ input {
   font-size: 16px;
   margin-right: 10px; }
 
-.btn-default {
-  background-color: #25656e;
-  color: white;
-}
-
-.btn-default:hover {
-  background-color: #267c81;
-}
-
 h3 {
   text-align: center;
   margin-top: 2px;
@@ -142,14 +142,12 @@ h3 {
 
   .form-group label {
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
   }
 
   .form-group input {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -170,14 +168,16 @@ h3 {
     font-size: 16px;
   }
 
-  .btn-primary {
-    background-color: #276f8e;
-    color: white;
+  .big_input{
+    width: 100%;
+    height: 150px;  /* Высота */
+    padding: 12px;
+    font-size: 16px; /* Размер шрифта */
+    resize: vertical; /* Разрешить вертикальное изменение размера */
+    font-family: inherit;
   }
 
-  .btn-primary:hover {
-    background-color: #4588a0;
-  }
+
 
   .btn-secondary {
     background-color: #e7e7e7;

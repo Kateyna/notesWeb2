@@ -8,18 +8,14 @@
   <form>
     <b>Добавить заметку</b>
     <p>
-      <label> <b>Название</b></label><br>
-      <input name="username" [(ngModel)]="note.name"/>
+      <label> Название</label><br>
+      <input name="username" [(ngModel)]="note.name" name="name" placeholder="Название"/>
     </p>
     <p>
-      <label> <b>Описание</b></label><br>
-      <input name="age" [(ngModel)]="note.description"/>
+      <label> Описание</label><br>
+      <input class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание"/>
     </p>
-    <button class="btn btn-default" (click)="submit(note); goToPage('home') ">Сохранить</button>
-    @if (done) {
-      <h3>Добавлена запись!</h3>
-
-    }
+    <button class="btn btn-default" (click)="submit(note)">Сохранить</button>
   </form>
 </div>
 </body>
