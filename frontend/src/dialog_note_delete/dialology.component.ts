@@ -5,7 +5,6 @@ import {
   MatDialogClose,
   MatDialogContent,
   MatDialogRef,
-  MatDialogTitle
 } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -17,9 +16,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatDialogClose,
     MatButtonModule
   ],
-  selector: 'app-dialology',
-  styleUrl: './dialology.component.css',
-  templateUrl: './dialology.component.html'
+  selector: 'app-dialog_note_delete',
+  styleUrl: './dialog_note_delete.css',
+  templateUrl: './dialog_note_delete.html'
 
 })
 export class DialologyComponent {

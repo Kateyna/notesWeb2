@@ -1,7 +1,6 @@
-package com.jwctech.backend.Entities;
+package com.jwctech.backend.entities;
 
 import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
 
 
 @Entity

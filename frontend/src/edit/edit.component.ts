@@ -21,7 +21,7 @@ import {MatTableDataSource} from '@angular/material/table';
 export class EditComponent implements OnInit{
 
   note: Note = new Note(0,"", "");
-  id: number | null = null; // Используем null для проверки
+  id!: number;  // Используем null для проверки
 
   constructor(
     private httpService: HttpService,
@@ -39,17 +39,13 @@ export class EditComponent implements OnInit{
   }
 
   loadNote(id: number): void {
-
-
-    this.http.get<Note>(`http://localhost:8080/api/note/${id}`)
+    this.httpService.getDataById(id)
       .subscribe({
         next: (data) => {
           this.note = data;
         },
       });
   }
-
-
 
   editItem(): void {
     const name = this.note.name?.trim();
@@ -61,7 +57,7 @@ export class EditComponent implements OnInit{
       return;
 
     }
-    this.http.put(`http://localhost:8080/api/note/${this.id}`, this.note)
+    this.httpService.updateNote(this.id,this.note)
       .subscribe({
         next: () => {
           this.router.navigate(['/home']);

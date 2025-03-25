@@ -1,6 +1,6 @@
-package com.jwctech.backend.DTO;
+package com.jwctech.backend.dto;
 
-import com.jwctech.backend.Entities.Note;
+import com.jwctech.backend.entities.Note;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

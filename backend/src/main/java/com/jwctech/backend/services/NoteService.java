@@ -1,8 +1,8 @@
 package com.jwctech.backend.services;
 
-import com.jwctech.backend.DTO.NoteDto;
-import com.jwctech.backend.DTO.NoteMapper;
-import com.jwctech.backend.Entities.Note;
+import com.jwctech.backend.dto.NoteDto;
+import com.jwctech.backend.dto.NoteMapper;
+import com.jwctech.backend.entities.Note;
 
 import com.jwctech.backend.repo.NoteRepo;
 

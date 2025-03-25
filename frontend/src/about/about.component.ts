@@ -54,7 +54,6 @@ export class AboutComponent {
           this.done = true;
           this.router.navigate(['/home']);
         },
-        error: error => console.log(error)
       });
   }
 

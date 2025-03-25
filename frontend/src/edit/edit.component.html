@@ -1,20 +1,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
-
-
 <body>
 <div class="container">
   <form>
-    <b>Изменить заметку</b>
+    <b>
+      Изменить заметку
+    </b>
     <p>
-
-      <input [(ngModel)]="note.name" name="name" placeholder="Название" />
-
+      <input [(ngModel)]="note.name" name="name" placeholder="Название"/>
     </p>
-      <textarea  class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание"    ></textarea>
+      <textarea  class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание"></textarea>
     <p>
     </p>
     <button class="add-note-btn" (click)="editItem()  ">Сохранить</button>

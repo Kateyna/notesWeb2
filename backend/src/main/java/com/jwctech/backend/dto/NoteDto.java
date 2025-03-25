@@ -1,4 +1,4 @@
-package com.jwctech.backend.DTO;
+package com.jwctech.backend.dto;
 
 public record NoteDto(
         Long id,

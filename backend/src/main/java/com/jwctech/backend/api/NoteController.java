@@ -1,6 +1,6 @@
 package com.jwctech.backend.api;
 
-import com.jwctech.backend.DTO.NoteDto;
+import com.jwctech.backend.dto.NoteDto;
 import com.jwctech.backend.services.NoteService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

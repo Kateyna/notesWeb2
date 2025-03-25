@@ -10,7 +10,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Note} from '../Note';
 import { FormsModule } from '@angular/forms';
 import {MatDialog, MatDialogActions, MatDialogContent, MatDialogModule, MatDialogTitle} from '@angular/material/dialog';
-import {DialologyComponent} from '../dialology/dialology.component';
+import {DialologyComponent} from '../dialog_note_delete/dialology.component';
+import {HttpService} from '../http.service';
 
 
 @Component({
@@ -18,8 +19,8 @@ import {DialologyComponent} from '../dialology/dialology.component';
   standalone: true,
   imports: [MatFormFieldModule,MatInputModule,MatButtonModule,MatTableModule,HttpClientModule,FormsModule,MatDialogModule,MatInputModule,MatFormFieldModule],
   styleUrl: './home.component.css',
-  templateUrl: './home.component.html'
-
+  templateUrl: './home.component.html',
+  providers: [HttpService]
 
 })
 
@@ -30,16 +31,16 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
   private route: ActivatedRoute,
-  public dialog: MatDialog
+  public dialog: MatDialog,
+    public httpService: HttpService
   ) {
   }
 
   ngOnInit(): void {
-    this.http.get<Note[]>('http://localhost:8080/api/note')
+    this.httpService.getData()
       .subscribe((notes: Note[]) => {
         this.dataSource = new MatTableDataSource(notes);
         console.log(notes);
-
       });
   }
 
@@ -67,8 +68,7 @@ export class HomeComponent implements OnInit {
 
 
   deleteItem(id: number) {
-
-    this.http.delete(`http://localhost:8080/api/note/${id}`)
+    this.httpService.deleteNote(id)
       .subscribe(() => {
         this.ngOnInit();
       });
