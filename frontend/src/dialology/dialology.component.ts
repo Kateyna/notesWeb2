@@ -12,11 +12,9 @@ import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   imports: [
-    // Добавляем обязательные импорты
-
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose, // <-- этот импорт критически важен
+    MatDialogClose,
     MatButtonModule
   ],
   selector: 'app-dialology',

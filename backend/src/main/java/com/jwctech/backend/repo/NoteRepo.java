@@ -1,4 +1,4 @@
-package com.jwctech.backend.Repo;
+package com.jwctech.backend.repo;
 
 import com.jwctech.backend.Entities.Note;
 import org.springframework.data.jpa.repository.JpaRepository;

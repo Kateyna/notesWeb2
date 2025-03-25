@@ -1,10 +1,10 @@
-package com.jwctech.backend.Services;
+package com.jwctech.backend.services;
 
 import com.jwctech.backend.DTO.NoteDto;
 import com.jwctech.backend.DTO.NoteMapper;
 import com.jwctech.backend.Entities.Note;
 
-import com.jwctech.backend.Repo.NoteRepo;
+import com.jwctech.backend.repo.NoteRepo;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -93,14 +91,4 @@ public class NoteService  {
                 })
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
-//    @Transactional
-//    public ResponseEntity<HttpStatus> deleteAllNotes() {
-//        try {
-//            noteRepo.deleteAll();
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 }

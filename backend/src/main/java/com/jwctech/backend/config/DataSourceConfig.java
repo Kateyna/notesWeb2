@@ -9,6 +9,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -35,5 +36,9 @@ public class DataSourceConfig {
         dataSource.setPassword(password);
         dataSource.setMaximumPoolSize(20);
         return dataSource;
+    }
+    @Bean
+    public DataSourceTransactionManager transactionManager(HikariDataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 }
