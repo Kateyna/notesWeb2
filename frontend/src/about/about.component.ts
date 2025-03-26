@@ -27,14 +27,13 @@ export class AboutComponent {
       alert('Пожалуйста, заполните все поля!');
       return;
     }
-
     this.httpService.postData(note)
       .subscribe({
         next: (data: any) => {
           this.receivedNote = data;
           this.done = true;
           this.router.navigate(['/home']);
-          console.log(Inject(data));
+          console.log(data);
         },
       });
   }

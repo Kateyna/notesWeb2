@@ -24,9 +24,7 @@ export class HomeComponent implements OnInit {
   dataSource: MatTableDataSource<Note> = new MatTableDataSource();
   constructor(
     private router: Router,
-    private http: HttpClient,
-  private route: ActivatedRoute,
-  public dialog: MatDialog,
+    public dialog: MatDialog,
     public httpService: HttpService
   ) {
   }

@@ -51,7 +51,7 @@ export class EditComponent implements OnInit{
     this.httpService.updateNote(this.id,this.note)
       .subscribe({
         next: () => {
-          console.log();
+          console.log(this.id,this.note);
           this.router.navigate(['/home']);
         }
       });
