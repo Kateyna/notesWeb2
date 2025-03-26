@@ -24,8 +24,8 @@ public class NoteController {
     @CrossOrigin
     @GetMapping("/note")
     @Operation(summary = "Получить все заметки", description = "Возвращает список всех заметок")
-    public ResponseEntity<List<NoteDto>>  getAllNotes(@RequestParam(required = false) String name) {
-        List<NoteDto> notes = noteService.getAllNotes(name);
+    public ResponseEntity<List<NoteDto>> getAllNotes() {
+        List<NoteDto> notes = noteService.getAllNotes();
         return ResponseEntity.ok(notes);
     }
 
