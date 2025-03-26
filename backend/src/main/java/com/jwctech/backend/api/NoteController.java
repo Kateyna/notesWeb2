@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,19 +25,22 @@ public class NoteController {
     @GetMapping("/note")
     @Operation(summary = "Получить все заметки", description = "Возвращает список всех заметок")
     public ResponseEntity<List<NoteDto>>  getAllNotes(@RequestParam(required = false) String name) {
-        return noteService.getAllNotes(name);
+        List<NoteDto> notes = noteService.getAllNotes(name);
+        return ResponseEntity.ok(notes);
     }
 
     @GetMapping("/note/{id}")
     @Operation(summary = "Получить заметку по id", description = "Возвращает детали конкретной заметки по её id")
     public ResponseEntity<NoteDto> getNoteById(@PathVariable("id") long id) {
-        return noteService.getNoteById(id);
+        NoteDto note = noteService.getNoteById(id);
+        return ResponseEntity.ok(note);
     }
 
     @PostMapping("/note")
     @Operation(summary = "Создать новую заметку", description = "Возвращает заметку с указанным id")
     public ResponseEntity<NoteDto> createNote(@Valid @RequestBody NoteDto noteDto) {
-        return noteService.createNote(noteDto);
+        NoteDto createdNote = noteService.createNote(noteDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdNote);
     }
 
     @PutMapping("/note/{id}")
@@ -45,12 +49,14 @@ public class NoteController {
             @PathVariable("id") long id,
             @Valid @RequestBody NoteDto noteDto
     ) {
-        return noteService.updateNote(id, noteDto);
+        NoteDto updatedNote = noteService.updateNote(id, noteDto);
+        return ResponseEntity.ok(updatedNote);
     }
 
     @DeleteMapping("/note/{id}")
     @Operation(summary = "Удалить заметку", description = "Удаляет заметку по указанному id")
     public ResponseEntity<Void> deleteNote(@PathVariable("id") long id) {
-        return noteService.deleteNote(id);
+        noteService.deleteNote(id);
+        return ResponseEntity.noContent().build();
     }
 }

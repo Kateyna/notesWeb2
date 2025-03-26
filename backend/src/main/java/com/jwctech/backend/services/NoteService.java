@@ -4,19 +4,17 @@ import com.jwctech.backend.dto.NoteDto;
 import com.jwctech.backend.dto.NoteMapper;
 import com.jwctech.backend.entities.Note;
 
+import com.jwctech.backend.exeption.ResourceNotFoundException;
 import com.jwctech.backend.repo.NoteRepo;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NoteService  {
@@ -31,64 +29,54 @@ public class NoteService  {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<List<NoteDto>> getAllNotes(String name) {
-        try {
-            List<Note> notes = new ArrayList<>();
-
-            if (name == null) noteRepo.findAll().forEach(notes::add);
-            else noteRepo.findByName(name).forEach(notes::add);
-
-            if (notes.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-            return new ResponseEntity<>(noteMapper.toNoteDtoList(notes), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    public List<NoteDto> getAllNotes(String name) {
+        List<Note> notes = (name == null)
+                ? noteRepo.findAll()
+                : noteRepo.findByName(name);
+        if (notes.isEmpty()) {
+            throw new ResourceNotFoundException("No notes found in database");
         }
+        return noteMapper.toNoteDtoList(notes);
     }
 
-
     @Transactional(readOnly = true)
-    public ResponseEntity<NoteDto> getNoteById(long id) {
-        Optional<Note> noteData = noteRepo.findById(id);
-        return noteData.map(note ->
-                        new ResponseEntity<>(noteMapper.toNoteDto(note), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public NoteDto getNoteById(long id) {
+        return noteRepo.findById(id)
+                .map(noteMapper::toNoteDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Note not found with id: " + id));
     }
 
     @Transactional(propagation = Propagation.REQUIRED,
             rollbackFor = Exception.class,
             noRollbackFor = {IllegalArgumentException.class})
-    public ResponseEntity<NoteDto> createNote(@Valid NoteDto noteDto) {
+    public NoteDto createNote(@Valid NoteDto noteDto) {
         try {
             Note note = noteMapper.toEntity(noteDto);
             Note savedNote = noteRepo.save(note);
-            return new ResponseEntity<>(noteMapper.toNoteDto(savedNote), HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return noteMapper.toNoteDto(savedNote);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ResourceNotFoundException("Cannot create note: invalid data");
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("Unexpected error during note creation");
         }
     }
 
     @Transactional(propagation = Propagation.REQUIRED,
             rollbackFor = {RuntimeException.class},
             noRollbackFor = {IllegalArgumentException.class})
-    public ResponseEntity<NoteDto> updateNote(long id, @Valid NoteDto noteDto) {
-        return noteRepo.findById(id)
-                .map(existingNote -> {
-                    noteMapper.updateNoteFromDto(noteDto, existingNote);
-                    Note updatedNote = noteRepo.save(existingNote);
-                    return new ResponseEntity<>(noteMapper.toNoteDto(updatedNote), HttpStatus.OK);
-                })
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public NoteDto updateNote(long id, @Valid NoteDto noteDto) {
+        Note existingNote = noteRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Note not found with id: " + id));
+        noteMapper.updateNoteFromDto(noteDto, existingNote);
+        Note updatedNote = noteRepo.save(existingNote);
+        return noteMapper.toNoteDto(updatedNote);
     }
 
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public ResponseEntity<Void> deleteNote(long id) {
-        return noteRepo.findById(id)
-                .map(note -> {
-                    noteRepo.deleteById(id);
-                    return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-                })
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public void deleteNote(long id) {
+        Note note = noteRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Note not found with id: " + id));
+        noteRepo.delete(note);
     }
 }
