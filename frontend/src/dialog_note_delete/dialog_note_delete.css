@@ -1,10 +1,6 @@
-
 b {
   font-family: sans-serif;
 }
-
-
-
 
 h1 {
   font-size: 20px;
@@ -20,13 +16,9 @@ button {
 
 button:hover {
   background-color: #b3afaf;
-
 }
-
-
 
 h2 {
   font-family: sans-serif;
   font-size: 18px;
-
 }

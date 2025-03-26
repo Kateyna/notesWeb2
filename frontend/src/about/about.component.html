@@ -3,19 +3,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<div class="container">
-  <form>
-    <b>
-      Добавить заметку
-    </b>
-    <p>
-      <input name="username" [(ngModel)]="note.name" name="name" placeholder="Название">
-    <div>
-    </div>
-      <textarea class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание"></textarea>
-    <p>
-    </p>
-    <button class="add-note-btn" (click)="submit(note)">Сохранить</button>
-  </form>
-</div>
+  <div class="container">
+    <form>
+      <b>
+        Добавить заметку
+      </b>
+        <p>
+          <input name="username" [(ngModel)]="note.name" name="name" placeholder="Название">
+        </p>
+      <div>
+      </div>
+        <textarea class="big_input" [(ngModel)]="note.description" name="description" placeholder="Описание"></textarea>
+      <p>
+      </p>
+      <button class="add-note-btn" (click)="submit(note)">Сохранить</button>
+    </form>
+  </div>
 </body>

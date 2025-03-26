@@ -1,14 +1,12 @@
 <div class="container">
-
-  <h1 class="title">Мои заметки</h1>
+  <h1
+    class="title">Мои заметки
+  </h1>
   <div class="header">
-
     <button class="add-note-btn" (click)="goToPage('about')">Добавить заметку</button>
   </div>
-
   <div class="table-container">
     <mat-table [dataSource]="dataSource">
-      <!-- Определение столбцов -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef><b>Заметка</b></mat-header-cell>
         <mat-cell *matCellDef="let item">{{ item.name }}</mat-cell>

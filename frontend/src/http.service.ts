@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Note} from './Note';
@@ -12,23 +11,22 @@ export class HttpService{
   constructor(private http: HttpClient){ }
 
   getData() {
-    return this.http.get<Note[]>(this.apiUrl);
+    return this.http.get<Note[]>(this.apiUrl)
   }
 
   getDataById(id: number) {
-    return this.http.get<Note>(`${this.apiUrl}/${id}`);
+    return this.http.get<Note>(`${this.apiUrl}/${id}`)
   }
 
   updateNote(id: number, note: Note) {
-    return this.http.put<Note>(`${this.apiUrl}/${id}`, note);
+    return this.http.put<Note>(`${this.apiUrl}/${id}`, note)
   }
 
-  deleteNote(id: number){
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteNote(id: number) {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
   }
 
-  postData(note: Note){
-    const body = {name: note.name, description: note.description};
-    return this.http.post<Note>(this.apiUrl, body);
+  postData(note: Note) {
+    return this.http.post(this.apiUrl, note)
   }
 }

@@ -17,10 +17,7 @@ public class Note  {
     @Column(name = "description")
     private String description;
 
-
-
     public Note() {
-
     }
 
     public Note(String name, String description) {

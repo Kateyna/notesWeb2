@@ -8,7 +8,6 @@ import {
 } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 
-
 @Component({
   imports: [
     MatDialogContent,
@@ -19,8 +18,8 @@ import {MatButtonModule} from '@angular/material/button';
   selector: 'app-dialog_note_delete',
   styleUrl: './dialog_note_delete.css',
   templateUrl: './dialog_note_delete.html'
-
 })
+
 export class DialologyComponent {
   constructor(
     public dialogRef: MatDialogRef<DialologyComponent>,

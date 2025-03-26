@@ -1,14 +1,10 @@
-/* Общий контейнер */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-
-
 }
 
-/* Заголовок с кнопкой добавления */
 .header {
   width: 100%;
   text-align: center;
@@ -31,14 +27,12 @@
 }
 
 .add-note-btn:hover {
-  background-color: #810404; /* Темнее зеленый при наведении */
+  background-color: #810404;
   color: #e1ebed;
-
 }
 
-/* Контейнер для таблицы */
 .table-container {
-  min-width: 300px; /* Минимальная ширина контейнера */
+  min-width: 300px;
   max-width: 600px;
   border-radius: 15px;
   background-color: #f8f6f6;
@@ -47,17 +41,12 @@
   overflow-x: auto;
 }
 
-/* Стиль для самой таблицы */
 mat-table {
   width: 100%;
-
-
-
 }
 
-h1{
+h1 {
   font-family: sans-serif;
-
 }
 
 mat-table th, mat-table td {
@@ -80,7 +69,6 @@ mat-table tr:hover {
   border-radius: 4px;
 }
 
-/* Красивый стиль для кнопок удаления */
 mat-table button {
   background-color: transparent;
   border: none;
@@ -94,7 +82,6 @@ mat-table button {
   display: inline-block;
   font-size: 14px;
 }
-
 
 mat-table1 button {
   background-color: transparent;

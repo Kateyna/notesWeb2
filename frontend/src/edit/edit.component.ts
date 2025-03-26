@@ -2,34 +2,27 @@ import {Component, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpService} from '../http.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-
+import {HttpClient} from '@angular/common/http';
 import { Note } from '../Note';
-import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-edit',
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
   ],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
   providers: [HttpService]
 })
 export class EditComponent implements OnInit{
-
   note: Note = new Note(0,"", "");
-  id!: number;  // Используем null для проверки
-
+  id!: number;
   constructor(
     private httpService: HttpService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
   ) { }
-
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -43,6 +36,7 @@ export class EditComponent implements OnInit{
       .subscribe({
         next: (data) => {
           this.note = data;
+          console.log(data);
         },
       });
   }
@@ -50,19 +44,15 @@ export class EditComponent implements OnInit{
   editItem(): void {
     const name = this.note.name?.trim();
     const description = this.note.description?.trim();
-
     if (!name || !description) {
-      // Можно добавить визуальное уведомление
       alert('Пожалуйста, заполните все поля!');
       return;
-
     }
     this.httpService.updateNote(this.id,this.note)
       .subscribe({
         next: () => {
+          console.log();
           this.router.navigate(['/home']);
-
-
         }
       });
   }

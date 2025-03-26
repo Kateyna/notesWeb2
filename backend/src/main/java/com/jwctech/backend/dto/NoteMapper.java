@@ -13,9 +13,7 @@ public interface NoteMapper {
 
     @Mapping(target = "id", ignore = true)
     Note toEntity(NoteDto dto);
-
     NoteDto toNoteDto(Note entity);
-
     List<NoteDto> toNoteDtoList(List<Note> entities);
 
     @Mapping(target = "id", ignore = true)

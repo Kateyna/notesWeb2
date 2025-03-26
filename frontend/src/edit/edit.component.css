@@ -71,10 +71,7 @@ input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-
-
 }
-
 
 .btn {
   padding: 10px 20px;
@@ -90,12 +87,11 @@ input {
   color: white;
 }
 
-
-
 h3 {
   text-align: center;
   margin-top: 20px;
 }
+
 .container {
   display: flex;
   justify-content: center;
@@ -105,8 +101,6 @@ h3 {
 
 form { display: flex;
   flex-direction: column;
-
-
   min-width: 300px;
   max-width: 300px;
   padding: 40px;
@@ -114,13 +108,9 @@ form { display: flex;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 6px; }
 
-
-
-
 label {
   font-weight: bold;
   margin-bottom: 5px; }
-
 
 .btn {
   padding: 10px 20px;
@@ -134,7 +124,6 @@ h3 {
   text-align: center;
   margin-top: 2px;
 
-  /* Группы полей формы */
   .form-group {
     margin-bottom: 15px;
   }
@@ -144,9 +133,6 @@ h3 {
     font-weight: bold;
   }
 
-
-
-  /* Блок с кнопками */
   .buttons {
     display: flex;
     justify-content: space-between;
@@ -161,9 +147,6 @@ h3 {
     font-size: 16px;
   }
 
-
-
-
   .btn-secondary {
     background-color: #e7e7e7;
     color: black;
@@ -172,7 +155,6 @@ h3 {
   .btn-secondary:hover {
     background-color: #d5d5d5;
   }
-
 
   .done-message {
     text-align: center;
