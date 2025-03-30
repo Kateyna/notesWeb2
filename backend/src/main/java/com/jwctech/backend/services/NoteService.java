@@ -4,17 +4,15 @@ import com.jwctech.backend.dto.NoteDto;
 import com.jwctech.backend.dto.NoteMapper;
 import com.jwctech.backend.entities.Note;
 
-import com.jwctech.backend.exeption.ResourceNotFoundException;
+import com.jwctech.backend.exception.ResourceNotFoundException;
 import com.jwctech.backend.repo.NoteRepo;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
@@ -37,7 +35,6 @@ public class NoteService  {
         List<Note> notes = noteRepo.findAll();
         if (notes.isEmpty()) {
             log.warn("Список заметок пуст");
-            throw new ResourceNotFoundException("В базе данных не найдено ни одной заметки");
         }
         log.debug("Найдено {} заметок", notes.size());
         return noteMapper.toNoteDtoList(notes);
@@ -62,15 +59,13 @@ public class NoteService  {
             noRollbackFor = {IllegalArgumentException.class})
     public NoteDto createNote(@Valid NoteDto noteDto) {
         log.info("Создание новой заметки: {}", noteDto);
-        try {
+
             Note note = noteMapper.toEntity(noteDto);
             Note savedNote = noteRepo.save(note);
             log.info("Заметка успешно создана с id: {}", savedNote.getId());
             return noteMapper.toNoteDto(savedNote);
-        } catch (DataIntegrityViolationException ex) {
-            log.error("Ошибка создания заметки: {}", ex.getMessage());
-            throw new ResourceNotFoundException("Ошибка создания заметки: нарушение ограничений БД");
-        }
+
+
     }
 
     @Transactional(propagation = Propagation.REQUIRED,

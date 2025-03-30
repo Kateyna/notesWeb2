@@ -1,8 +1,13 @@
 package com.jwctech.backend.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "note")
 public class Note  {
