@@ -1,0 +1,65 @@
+    @Value("${spring.jpa.hibernate.ddl-auto}") // Соответствует свойству в application.properties
+    private String ddlAuto;
+
+    @Value("${spring.jpa.properties.hibernate.dialect}")
+    private String dialect;
+///////////////////////////////////////////////////////////////
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan("com.jwctech.backend.entities"); // Проверьте правильность пути!
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(jpaProperties()); // Добавлены свойства Hibernate
+        return em;
+    }
+
+    private Properties jpaProperties() { // Новый метод с настройками
+        Properties properties = new Properties();
+        properties.put("hibernate.hbm2ddl.auto", ddlAuto);
+        properties.put("hibernate.dialect", dialect);
+        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.format_sql", "true");
+        return properties;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+        return transactionManager;
+    }}
+/////////////////////////////////////////////////////////////////////////////
+
+spring.application.name=backend
+spring.datasource.url=jdbc:postgresql://localhost:5432/lisst
+spring.datasource.username=postgres
+spring.datasource.password=123
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
+
+
+springfox.documentation.swagger.v2.path=/api-docs
+springfox.documentation.enabled=true
+
+logging.level.com.jwctech.backend.services.NoteService=DEBUG
+
+
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.show-sql=true
+server.error.include-message=always
+
+spring.jpa.properties.hibernate.format_sql=true
+
+
+spring.jpa.hibernate.ddl-auto= update
+spring.jpa.open-in-view=false
+
+spring.datasource.hikari.maximum-pool-size=15
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.idle-timeout=30000
+spring.datasource.hikari.max-lifetime=200000
+spring.datasource.hikari.connection-timeout=10000
+spring.datasource.hikari.pool-name=CustomHikariPool
+logging.level.com.zaxxer.hikari=DEBUG
+
